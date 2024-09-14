@@ -13,6 +13,7 @@ public class Task {
     private long time;
     private LocalDate taskDate;
     private boolean deleted;
+    private boolean completed; // New field
 
     public Task(String id, String taskName, long time, LocalDate taskDate, boolean deleted) {
         this.id = id;
@@ -60,5 +61,13 @@ public class Task {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }

@@ -70,4 +70,16 @@ public class TaskController {
         taskService.softDeleteTask(id);
         return "{'message': 'Task with id " + id + " has been soft deleted.'}";
     }
+
+    @PatchMapping("/task/{id}/complete")
+    public Task completeTask(@PathVariable String id) {
+        return taskService.completeTask(id); // Call the service method
+    }
+
+    @PatchMapping("/task/{id}/name")
+    public Task updateTaskName(@PathVariable String id, @RequestBody Map<String, String> request) {
+        String newName = request.get("taskName");
+        return taskService.updateTaskName(id, newName);
+    }
+
 }
