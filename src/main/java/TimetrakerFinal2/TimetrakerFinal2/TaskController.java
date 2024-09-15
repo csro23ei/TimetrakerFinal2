@@ -73,7 +73,7 @@ public class TaskController {
 
     @PatchMapping("/task/{id}/complete")
     public Task completeTask(@PathVariable String id) {
-        return taskService.completeTask(id); // Call the service method
+        return taskService.completeTask(id);
     }
 
     @PatchMapping("/task/{id}/name")

@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Service
 public class TaskService {
@@ -37,14 +38,14 @@ public class TaskService {
     }
 
     public Task editTask(String id, Task task) {
-        // Retrieve the existing task
+
         Task existingTask = getTaskById(id);
         if (existingTask != null) {
             existingTask.setTaskName(task.getTaskName());
             existingTask.setTime(task.getTime());
             existingTask.setTaskDate(task.getTaskDate());
-            existingTask.setCompleted(task.isCompleted()); // Update completed status
-            return saveTask(existingTask); // Save the updated task
+            existingTask.setCompleted(task.isCompleted());
+            return saveTask(existingTask);
         }
         throw new RuntimeException("Task not found");
     }
@@ -53,7 +54,7 @@ public class TaskService {
     private TaskRepository taskRepository;
 
     public Task saveTask(Task task) {
-        return taskRepository.save(task); // Save the updated task
+        return taskRepository.save(task);
     }
 
     public Task totalTimeForTask(String id, long time) {
@@ -84,14 +85,20 @@ public class TaskService {
 
     public Task completeTask(String id) {
         Task task = getTaskById(id);
-        task.setCompleted(true); // Mark task as completed
-        return editTask(id, task); // Save the updated task
+        task.setCompleted(true);
+        return editTask(id, task);
     }
 
     public Task updateTaskName(String id, String newName) {
-        Task task = getTaskById(id); // Retrieve the task by ID
-        task.setTaskName(newName); // Set the new task name
-        taskRepository.save(task); // Save the updated task (this assumes you have a repository)
+        Task task = getTaskById(id);
+        task.setTaskName(newName);
+        taskRepository.save(task);
         return task;
     }
+
+    @GetMapping
+    public String getIndex() {
+        return "{'message': 'Min Bakend'}";
+    }
+
 }
